@@ -7,5 +7,6 @@ Build/Dev.app/Contents/Resources/
 Build/Dev.app/Contents/_CodeSignature/
 pkgroot/
 RestartReminder.pkg
+RestartReminder.zip
 .DS_Store
 .claude/

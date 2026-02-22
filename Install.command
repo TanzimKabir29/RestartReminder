@@ -7,6 +7,9 @@ if [ ! -f "$PKG" ]; then
     exit 1
 fi
 
+# Remove quarantine so macOS does not block the installer
+xattr -d com.apple.quarantine "$PKG" 2>/dev/null || true
+
 osascript -e 'display dialog "This will install RestartReminder on your Mac. It adds a menu bar item showing your system uptime and reminds you to restart after 14 days.\n\nClick Install to continue." buttons {"Cancel", "Install"} default button "Install" with title "RestartReminder Installer"' || exit 0
 
 sudo installer -pkg "$PKG" -target / && \

@@ -22,6 +22,11 @@ jobs:
       - name: Build
         run: bash release.sh
 
+      - name: Package release assets
+        run: |
+          chmod +x Install.command Uninstall.command
+          zip RestartReminder.zip RestartReminder.pkg Install.command Uninstall.command
+
       - name: Publish release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -32,6 +37,4 @@ jobs:
             --title "Latest" \
             --notes "Built from $(git rev-parse --short HEAD) on $(date -u '+%Y-%m-%d %H:%M UTC')" \
             --prerelease \
-            RestartReminder.pkg \
-            Install.command \
-            Uninstall.command
+            RestartReminder.zip

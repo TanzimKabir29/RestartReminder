@@ -22,10 +22,12 @@ A lightweight macOS menu bar app that tracks system uptime and reminds you to re
 
 ### Steps
 
-1. Download **`RestartReminder.pkg`**, **`Install.command`**, and **`Uninstall.command`** from the [latest release](../../releases/latest) — keep all files in the same folder
-2. Double-click **`Install.command`**
-3. Confirm the dialog and enter your Mac password when prompted
-4. Look for the uptime counter in your menu bar — it's running
+1. Download **`RestartReminder.zip`** from the [latest release](../../releases/latest)
+2. Double-click the zip to extract it — this preserves file permissions
+3. **Right-click** `Install.command` → **Open** → click **Open** in the Gatekeeper dialog
+   > macOS blocks downloaded scripts by default. Right-click → Open bypasses this for files you trust.
+4. Confirm the dialog and enter your Mac password when prompted
+5. Look for the uptime counter in your menu bar — it's running
 
 > The installer copies the app to `/Applications`, registers a LaunchAgent so it starts at login, and copies the default config to `~/Library/Application Support/RestartReminder/`.
 
