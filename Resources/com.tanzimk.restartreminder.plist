@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plist version="1.0">
+<dict>
+    <key>Label</key><string>com.tanzimk.restartreminder</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Applications/RestartReminder.app/Contents/MacOS/restart-reminder</string>
+    </array>
+
+    <key>RunAtLoad</key><true/>
+    <key>KeepAlive</key><true/>
+</dict>
+</plist>
+

@@ -1,0 +1,11 @@
+Build/devtest
+Build/restart-reminder
+Build/RestartReminder.app
+Build/AppIcon.iconset
+Build/Dev.app/Contents/MacOS/
+Build/Dev.app/Contents/Resources/
+Build/Dev.app/Contents/_CodeSignature/
+pkgroot/
+RestartReminder.pkg
+.DS_Store
+.claude/

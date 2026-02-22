@@ -1,0 +1,17 @@
+#!/bin/bash
+
+APP_SUPPORT="$HOME/Library/Application Support/RestartReminder"
+PLIST="$HOME/Library/LaunchAgents/com.tanzimk.restartreminder.plist"
+
+mkdir -p "$APP_SUPPORT"
+
+# Only copy default config if one doesn't exist — preserves user's settings on upgrade
+if [ ! -f "$APP_SUPPORT/config.json" ]; then
+    cp "/Applications/RestartReminder.app/Contents/Resources/config.json" "$APP_SUPPORT/"
+fi
+
+cp "/Applications/RestartReminder.app/Contents/Resources/com.tanzimk.restartreminder.plist" "$PLIST"
+
+# Unload first in case this is an upgrade
+launchctl bootout "gui/$(id -u)" "$PLIST" 2>/dev/null || true
+launchctl bootstrap "gui/$(id -u)" "$PLIST"
