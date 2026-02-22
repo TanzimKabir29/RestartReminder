@@ -8,6 +8,7 @@ on:
       - 'Resources/**'
       - 'Scripts/**'
       - 'release.sh'
+  workflow_dispatch:
 
 permissions:
   contents: write
