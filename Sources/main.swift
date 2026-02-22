@@ -102,6 +102,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         let alert = NSAlert()
         alert.messageText = "Set Reminder Threshold"
         alert.informativeText = "Remind me to restart after this many days of uptime:"
+        alert.icon = NSApp.applicationIconImage
         alert.addButton(withTitle: "Save")
         alert.addButton(withTitle: "Cancel")
 
