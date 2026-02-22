@@ -33,4 +33,5 @@ jobs:
             --notes "Built from $(git rev-parse --short HEAD) on $(date -u '+%Y-%m-%d %H:%M UTC')" \
             --prerelease \
             RestartReminder.pkg \
-            Install.command
+            Install.command \
+            Uninstall.command

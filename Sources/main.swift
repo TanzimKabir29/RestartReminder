@@ -1,12 +1,20 @@
 import Cocoa
 import UserNotifications
 
+private enum Constants {
+    static let defaultThresholdDays: Double = 14
+    static let secondsPerDay: Double        = 86400
+    static let secondsPerHour: Double       = 3600
+    static let renotifyInterval: Double     = 43200  // 12 hours
+    static let timerInterval: Double        = 60     // seconds between checks
+}
+
 class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDelegate {
     var item: NSStatusItem!
     var timer: Timer?
     var uptimeItem: NSMenuItem!
 
-    var thresholdDays: Double = 14
+    var thresholdDays: Double = Constants.defaultThresholdDays
     var lastNotifiedDate: Double = 0  // Unix timestamp (wall-clock), not uptime
 
     func applicationDidFinishLaunching(_ notification: Notification) {
@@ -24,7 +32,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         center.delegate = self
         center.requestAuthorization(options: [.alert, .sound]) { _, _ in }
 
-        timer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: Constants.timerInterval, repeats: true) { [weak self] _ in
             self?.update()
             self?.checkReminder()
         }
@@ -46,9 +54,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 
     func update() {
         let sec = Int(ProcessInfo.processInfo.systemUptime)
-        let d = sec / 86400
-        let h = (sec % 86400) / 3600
-        let m = (sec % 3600) / 60
+        let d = sec / Int(Constants.secondsPerDay)
+        let h = (sec % Int(Constants.secondsPerDay)) / Int(Constants.secondsPerHour)
+        let m = (sec % Int(Constants.secondsPerHour)) / 60
 
         let text = "\(d)d \(h)h \(m)m"
         item.button?.title = text
@@ -72,7 +80,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     }
 
     func notify() {
-        let days = Int(ProcessInfo.processInfo.systemUptime / 86400)
+        let days = Int(ProcessInfo.processInfo.systemUptime / Constants.secondsPerDay)
         let content: UNMutableNotificationContent = UNMutableNotificationContent()
         content.title = "Restart Reminder"
         content.body = "Your Mac has been running for \(days) days. Consider restarting for free performance."
@@ -88,10 +96,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 
     func checkReminder() {
         let uptime: TimeInterval = ProcessInfo.processInfo.systemUptime
-        let days: Double = uptime / 86400
+        let days: Double = uptime / Constants.secondsPerDay
         let now = Date().timeIntervalSince1970
 
-        if days >= thresholdDays && now - lastNotifiedDate > 86400 {
+        if days >= thresholdDays && now - lastNotifiedDate > Constants.renotifyInterval {
             notify()
             lastNotifiedDate = now
             UserDefaults.standard.set(now, forKey: "lastNotifiedDate")

@@ -8,7 +8,7 @@ A lightweight macOS menu bar app that tracks system uptime and reminds you to re
 
 - Shows live uptime (e.g. `3d 14h 22m`) in the menu bar
 - Sends a notification when uptime exceeds your configured threshold (default: 14 days)
-- Re-notifies once per day until you restart
+- Re-notifies every 12 hours until you restart
 - Starts automatically at login via a LaunchAgent
 - Lets you adjust the reminder threshold without editing any files
 
@@ -22,7 +22,7 @@ A lightweight macOS menu bar app that tracks system uptime and reminds you to re
 
 ### Steps
 
-1. Download **`RestartReminder.pkg`** and **`Install.command`** from the [latest release](../../releases/latest) — keep both files in the same folder
+1. Download **`RestartReminder.pkg`**, **`Install.command`**, and **`Uninstall.command`** from the [latest release](../../releases/latest) — keep all files in the same folder
 2. Double-click **`Install.command`**
 3. Confirm the dialog and enter your Mac password when prompted
 4. Look for the uptime counter in your menu bar — it's running
